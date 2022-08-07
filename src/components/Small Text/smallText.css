@@ -1,0 +1,15 @@
+.small-text {
+    font-family: "Kumbh Sans";
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.small-text .small-text-span {
+    color: #818181;
+}
+
+.small-text .small-text-link {
+    margin-left: 0.5rem;
+    color: #4B677A;
+    text-decoration: none;
+}

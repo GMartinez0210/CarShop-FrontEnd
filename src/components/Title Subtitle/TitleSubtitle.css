@@ -1,0 +1,25 @@
+.title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.title {
+    font-family: 'Kumbh Sans';
+    font-weight: 900;
+    font-size: 3rem;    
+    
+    text-align: center;
+    
+    color: #4B677A;
+}
+
+.subtitle {
+    font-family: 'Kumbh Sans';
+    font-weight: 900;
+    font-size: 1.5rem;
+
+    text-align: center;
+
+    color: #818181;
+}

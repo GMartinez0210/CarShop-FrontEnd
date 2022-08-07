@@ -1,0 +1,24 @@
+.logoVector {
+    width: 100%;
+    height: 400px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.logoVector-img {
+    height: 100%;
+    transform: translateX(-30%);
+}
+
+.logoVector-vector {
+    width: 100%;
+    height: 200px;
+    
+    object-fit: cover;
+
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}

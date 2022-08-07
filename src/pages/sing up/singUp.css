@@ -1,0 +1,44 @@
+.sign-up-container {
+    overflow: hidden;
+    height: 100vh;
+    text-align: center;
+}
+
+.previous-container {
+    width: 3rem;
+    aspect-ratio: 1;
+    
+    display: grid;
+    align-items: center;
+
+    background-color: #58575C;
+    color: #FFF;
+
+    font-size: 1.5rem;
+
+    margin: 2rem;
+    border-radius: 50%;
+}
+
+.sing-up-form {
+    display: flex;
+    flex-direction: column;
+
+    padding: 2rem 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.sing-up-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-button-social-container {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+}
