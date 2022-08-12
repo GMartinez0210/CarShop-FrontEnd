@@ -1,0 +1,22 @@
+.category-item-btn {
+    height: 48px;
+
+    background-color: #FFFFFF;
+    color: #7D94A5;
+
+    border-radius: 0.5rem;
+
+    border: 0;
+    padding: 0.75rem;
+    box-shadow: 0px 0px 4px #00000040;
+
+    font-family: 'Kumbh Sans';
+    font-weight: 500;
+    font-size: 1.125rem;
+}
+
+.category-item-btn.active {
+    background-color: #7D94A5;
+    color: #FFFFFF;
+}
+

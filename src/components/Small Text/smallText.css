@@ -1,4 +1,6 @@
 .small-text {
+    display: inline-block;
+
     font-family: "Kumbh Sans";
     font-weight: 500;
     font-size: 1rem;

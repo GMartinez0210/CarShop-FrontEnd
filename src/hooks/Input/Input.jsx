@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef, useState } from "react"
 
 // * CSS
 import "./input.css"
@@ -37,15 +37,17 @@ function Input(props) {
     }
 
     return(
-        <div className={`${props.inputClass || ""} input`} 
+        <label className={`${props.inputClass || ""} input`} 
             onClick={() => {onClickFocus()}}>
             <div className="input-icon">
-                <i className={props.icon}></i>
+                <i className={`${props.icon} ${props.iconClass || ""}`}></i>
             </div>
             <input ref={inputRef} 
-                className="input-field" 
+                className={`input-field ${props.type != "password" && "input-no-password" }`} 
                 type={inputType || "text"} 
-                placeholder={props.placeholder}/>
+                placeholder={props.placeholder} 
+                name={props.name} value={props.value} 
+                onChange={props.onChange}/>
             {
                 props.type == "password" &&
                 <div ref={revealRef} className="input-reveal" 
@@ -57,7 +59,7 @@ function Input(props) {
                     }
                 </div>
             }
-        </div>
+        </label>
     )
 }
 

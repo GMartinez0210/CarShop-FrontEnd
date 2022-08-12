@@ -1,6 +1,5 @@
 .sign-up-container {
     overflow: hidden;
-    height: 100vh;
     text-align: center;
 }
 
@@ -40,5 +39,5 @@
     gap: 5rem;
 
     margin-top: 2rem;
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
 }
