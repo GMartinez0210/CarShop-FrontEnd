@@ -5,21 +5,30 @@ import { useState } from "react"
 import "./categoryItem.css"
 
 function CategoryItem(props) {
-    const [active, setActive] = useState(props.status)
+    const [active, setActive] = useState("Recomended")
 
     
-    function onClickButton() {
-        //props.searchCar()
-        props.cleanButtons()
-        setActive(props.status)
+    function onClickButton(event) {
+        const key = event.target.ariaLabel
+        setActive(key)
+        props.searchCar(key)
     }
 
+    // Return
     return (
-        <button className={`${props.buttonClass || ""} ${active && "active"} category-item-btn`} 
-            type="button" aria-label={props.text} 
-            onClick={onClickButton}>
-            {props.text}
-        </button>
+        <>
+            {
+                props.categories.map((brand, index) => {
+                    return (
+                        <button key={`Home-Category-Item-${index}`} className={`${props.buttonClass || ""} ${active == brand ? "active" : ""} category-item-btn`} 
+                            type="button" aria-label={brand} 
+                            onClick={onClickButton}>
+                            {brand}
+                        </button>
+                    )
+                })
+            }
+        </>
     )
 }
 

@@ -7,7 +7,7 @@ function Menu(props) {
             <button className="menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target={"#"+props.offNavBar} aria-controls={props.offNavBar}>
                 <i className="bi bi-text-left"></i>
             </button>
-            <div className="offcanvas offcanvas-start menu-off-nav" tabindex="-1" id={props.offNavBar} aria-labelledby={props.offNavBarLabel}>
+            <div className="offcanvas offcanvas-start menu-off-nav" tabIndex="-1" id={props.offNavBar} aria-labelledby={props.offNavBarLabel}>
                 <div className="offcanvas-header">
                     <h5 className="offcanvas-title" id={props.offNavBarLabel}>{props.offTitle}</h5>
                     <button type="button" className="menu-btn-close" data-bs-dismiss="offcanvas" aria-label="Close">

@@ -1,24 +1,22 @@
 import { useState } from "react"
 
+// * Hooks
 import Nav from "./hooks/Nav/Nav"
+
+// * Pages
 import Home from "./pages/home/Home"
 
 function App() {
-  const [loaded, setToLoad] = useState()
   const [page, setPage] = useState("")
 
-  // TODO Refactor and fix the navigation bar component 
-  // TODO which isn't working correctly
-
-  function currentPage(iconRef) {
-    if(iconRef.current.ariaLabel == "Home")
-      setPage(iconRef.current.ariaLabel)
+  function getPage(value) {
+    setPage(value)
   }
 
   return (
     <>
-      {page == "Home" && <Home />}      
-      <Nav currentPage={currentPage}/>
+      {page == "Home" && <Home />}
+      <Nav getPage={getPage}/>
     </>
   )
 }
