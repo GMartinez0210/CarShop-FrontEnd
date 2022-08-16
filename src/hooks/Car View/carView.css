@@ -1,20 +1,16 @@
 .car-view-container {
     width: 100%;
-    height: clamp(100vh, 100%, 100%);
     
-    position: absolute;
-    top: 0;
-    left: -100%;
-
     background-color: #FFF;
 
+    transform: translateX(-100%);
     opacity: 0;
 
     transition: 0.5s ease-in-out all;
 }
 
 .car-view-container.shown {
-    left: 0;
+    transform: translateX(0%);
     opacity: 1;
 }
 
@@ -234,6 +230,7 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    row-gap: 1rem;
 }
 
 .car-view-icon-container {
@@ -265,9 +262,10 @@
 }
 
 .car-view-icon-info {
+    max-width: 60px;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 .car-view-icon-info p {
@@ -293,9 +291,10 @@
 .car-view-footer {
     display: flex;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 2rem;
 
-    margin-block: 1.5rem;
+    margin-top: 3.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .car-view-icon {
@@ -303,6 +302,7 @@
 }
 
 .car-view-buy {
+    width: 100%;
     background-color: #4B677A;
     color: #FFF;
 

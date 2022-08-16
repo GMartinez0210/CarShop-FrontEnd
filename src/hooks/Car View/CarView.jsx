@@ -22,8 +22,6 @@ const gearIcon = "bi bi-gear"
 const cartIcon = "bi bi-cart"
 
 function CarView(props) {
-    const carView = document.getElementById("car-view")
-
     const [quantity, setQuantity] = useState(0)
 
     function lessQuantity() {
@@ -130,9 +128,9 @@ function CarView(props) {
     }, [props.shownCarView])
 
     return (
-        <>
-            {props.shownCarView && createPortal(View(props.car), carView)}
-        </>
+        <div>
+            {props.shownCarView && View(props.car)}
+        </div>
     )
 }
 
