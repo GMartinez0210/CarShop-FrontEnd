@@ -19,6 +19,7 @@ const passwordIcon = "bi bi-lock-fill"
 // ! REMOVE AFTER FINISHING THIS
 // ! TO CREATE A NEW COMPONENT => "Form"
 import "./login.css"
+import { useEffect } from "react"
 
 function Login() {
     let navigate = useNavigate()
@@ -52,21 +53,16 @@ function Login() {
             }
         }
         
-        console.log(options.data);
-        
         const result = await axios(options)
             .then(response => response.data)
             .catch(error => error)
-
-        console.log("Result")
-        console.log(result)
         
         if(result.error) {
             alert("Cant log in")
             return
         }
 
-        if(result.user == null) {
+        if(result.userID == null) {
             alert("Not found the user")
             return
         }
@@ -76,8 +72,16 @@ function Login() {
             return
         }
 
+        window.localStorage.setItem("userID", result.userID)
         navigate("/", {replace: true})
     }
+
+    useEffect(() => {
+        const userID = window.localStorage.getItem("userID")
+        if(userID) {
+            navigate("/", {replace: true})
+        }
+    })
 
     return(
         <div>

@@ -29,7 +29,7 @@ function NavIcon(props) {
     }
 
     useEffect(() => {
-        props.getPage(active)
+        props.setPage(active)
     }, [active])
 
     return (

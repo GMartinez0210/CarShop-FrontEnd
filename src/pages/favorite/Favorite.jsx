@@ -11,13 +11,13 @@ import utilities from "../../utilities"
 import { 
     useFetchCarView, 
     useFetchUserData, 
-    useFetchCars, 
     useFetchBrands,
-    useFetchSearchedCar 
+    useFetchSearchedCar,
+    useFetchFavoritesCar
 } from "../../custom/useFetch.js"
 
 // * CSS
-import "./home.css"
+import "./favorite.css"
 
 // * Components
 import CarItem from "../../components/Car Item/CarItem"
@@ -37,16 +37,14 @@ import photoDefault from "../../assets//Home/account-avatar-man.svg"
 const searchIcon = "bi bi-search"
 const confirmIcon = "bi bi-check-lg"
 
-function Home(props) {
+function Favorite(props) {
     // To know if the user logged
     let navigate = useNavigate()
     const [isLoggedIn, setLoggedIn] = useState(false)
-    const [userData, setUserData] = useState({})
 
     // To fetch data from the api
     const [allCars, addCar] = useState([])
     const [allBrands, addBrand] = useState([])
-    const [allPopulars, addPopular] = useState([])
 
     // To show the category active
     const [categoryActive, setCategoryActive] = useState("Recomended")
@@ -55,41 +53,14 @@ function Home(props) {
         return categoryActive
     }
 
-    async function handleFetchUserData() {
-        const user = await useFetchUserData()
-        setUserData(user)
-    }
-
     async function handleFetchCars() {
-        const car = await useFetchCars()
+        const car = await useFetchFavoritesCar()
         addCar(car)
     }
 
     async function handleFetchBrands() {
         const brands = await useFetchBrands()
         addBrand(["Recomended", ...brands])
-    }
-    
-    const searchForm = useFormik({
-        initialValues: {
-            search: ""
-        },
-        onSubmit: async (values) => await onSubmitSearch(values)
-    })
-
-    async function onSubmitSearch(values) {
-        const {search} = values
-
-        const words = search.trim().split(" ")
-
-        const brand = words.length == 1 
-            ? words[0] : words.shift()
-        
-        const model = words.length > 1 
-            ? words.reduce((total, value) => `${total} ${value}`) 
-            : undefined
-
-        await handleSearchCar(brand, model)
     }
 
     async function handleSearchCar(brand, model) {
@@ -103,11 +74,6 @@ function Home(props) {
         }
 
         addCar(car)
-    }
-
-    async function handleFetchPopulars() {
-        const car = await useFetchCars()
-        addPopular(car)
     }
 
     async function showCarView(event) {
@@ -129,48 +95,19 @@ function Home(props) {
 
     useEffect(() => {
         if(isLoggedIn) {
-            handleFetchUserData()
             handleFetchCars()
             handleFetchBrands()
-            handleFetchPopulars()
         }
     }, [isLoggedIn])
 
     return (
-        <div className="home">
-            <header className="home-header">
-                <Menu offNavBar={"off-navbar"} 
-                    offNavBarLabel={"off-navbar-title"} 
-                    offTitle={"Menu"}/>
+        <div className="favorite">
+            <SmallText spanText={"Let's see your"} aText={"favorite cars"} 
+                href={"#"} redirect={false} smallClass={"favorite-small-text"}/>
 
-                <a className="home-profile" href="/profile">
-                    <img className="home-profile-photo" 
-                        src={
-                            (userData.photo != null || userData.photo != undefined)
-                            ? `${env.API_URL}/api/photo/${userData.photo.name}`
-                            : photoDefault
-                        } 
-                        alt={""}/>
-                </a>
-            </header>
+            <h1 className="favorite-subtitle">Categories</h1>
 
-            <SmallText spanText={"Let's find your"} aText={"car"} 
-                href={"#"} redirect={false} smallClass={"home-small-text"}/>
-
-            <form className="home-search-form" onSubmit={searchForm.handleSubmit}>
-                <Input inputClass={"home-search-input"} name={"search"}
-                    type={"search"} placeholder={"Search car..."} 
-                    icon={searchIcon} iconClass={"input-search"}  
-                    value={searchForm.values.search} 
-                    onChange={searchForm.handleChange}/>
-
-                <ButtonSubmit buttonClass={"home-button-submit"} 
-                    icon={confirmIcon}/>
-            </form>
-
-            <h1 className="home-subtitle">Categories</h1>
-
-            <div className="home-categories-container">
+            <div className="favorite-categories-container">
                 <CategoryItem categories={allBrands} 
                     getCategoryActive={getCategoryActive} 
                     setCategoryActive={setCategoryActive}
@@ -197,25 +134,8 @@ function Home(props) {
                     })
                 }
             </div>
-
-            <h1 className="home-subtitle">Most popular</h1>
-
-            {
-                allPopulars.map((car, index) => {
-                    const {images: [{name: image}]} = car
-                    const {_id, brand, model} = car
-
-                    const name = `${brand} ${model}`
-                    const path = env.API_URL+"/api/image/"
-
-                    return <PopularItem key={`Home-Populat-Item-${index}`} 
-                        brand={brand} model={model} _id={_id} 
-                        image={path+image} name={name} 
-                        showCarView={showCarView}/>
-                })
-            }
         </div>
     )
 }
 
-export default Home
+export default Favorite

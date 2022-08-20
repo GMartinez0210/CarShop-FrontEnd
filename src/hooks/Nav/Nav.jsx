@@ -17,16 +17,18 @@ function Nav(props) {
     return (
         <nav className="container-fluid position-fixed bottom-0 home-navbar-container">
             <div className="home-navbar">
-                <label htmlFor="navbar-upload" className="home-navbar-upload">
-                    {
-                        uploadActive
-                        ? <i className={`${uploadFill} upload-icon`}></i>
-                        : <i className={`${upload} upload-icon`}></i>
-                    }
-                </label>
-                <input id="navbar-upload" className="d-none" type={"file"}/>
+                {
+                    props.getPage() == "Home"
+                    && <label className="home-navbar-upload">
+                        {
+                            uploadActive
+                            ? <i className={`${uploadFill} upload-icon`}></i>
+                            : <i className={`${upload} upload-icon`}></i>
+                        }
+                    </label>
+                }
                 <ul className="home-navbar-icons">
-                    <NavIcon arrayAriaLabel={arrayAriaLabel} getPage={props.getPage}/>
+                    <NavIcon arrayAriaLabel={arrayAriaLabel} setPage={props.setPage}/>
                 </ul>
             </div>
         </nav>

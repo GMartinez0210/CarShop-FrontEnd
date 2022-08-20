@@ -6,11 +6,11 @@ function Slider(props) {
             <div className="carousel-indicators">
                 {
                     props.images.map((item, index) => {
-                        return <button type="button" 
+                        return <button key={"Slider-Button-"+index} type="button" 
                         data-bs-target={`#${props.id}`} 
                         data-bs-slide-to={index} 
-                        className={index == 0 && "active"} 
-                        aria-current={index == 0 && "true"}
+                        className={index == 0 ? "active" : ""} 
+                        aria-current={index == 0 ? "true" : "false"}
                         aria-label={"Slider"+index}></button>
                     })
                 }
@@ -20,7 +20,7 @@ function Slider(props) {
                 {
                     props.images.map((item, index) => {
                         return (
-                            <div className={`car-view-img carousel-item ${index == 0 && "active"}`}>
+                            <div key={"Slider-Image-"+index} className={`car-view-img carousel-item ${index == 0 && "active"}`}>
                                 <img className="d-block w-100" 
                                     src={`http://localhost:4000/api/image/${item.name}`}
                                     alt={item.name} />
