@@ -28,7 +28,9 @@ function Nav(props) {
                     </label>
                 }
                 <ul className="home-navbar-icons">
-                    <NavIcon arrayAriaLabel={arrayAriaLabel} setPage={props.setPage}/>
+                    <NavIcon arrayAriaLabel={arrayAriaLabel} 
+                        setPage={props.setPage} getPage={props.getPage}
+                        setSomething={props.setSomething} />
                 </ul>
             </div>
         </nav>

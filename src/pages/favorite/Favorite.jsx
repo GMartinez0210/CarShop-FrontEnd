@@ -13,6 +13,7 @@ import {
     useFetchUserData, 
     useFetchBrands,
     useFetchSearchedCar,
+    useFetchSearchedCarByBrand,
     useFetchFavoritesCar
 } from "../../custom/useFetch.js"
 
@@ -47,7 +48,7 @@ function Favorite(props) {
     const [allBrands, addBrand] = useState([])
 
     // To show the category active
-    const [categoryActive, setCategoryActive] = useState("Recomended")
+    const [categoryActive, setCategoryActive] = useState("All")
 
     function getCategoryActive() {
         return categoryActive
@@ -55,25 +56,42 @@ function Favorite(props) {
 
     async function handleFetchCars() {
         const car = await useFetchFavoritesCar()
+        if(!car) {
+            props.setSomething(true)
+            return
+        }
+
+        props.setSomething(false)
         addCar(car)
     }
 
     async function handleFetchBrands() {
-        const brands = await useFetchBrands()
-        addBrand(["Recomended", ...brands])
+        const cars = await useFetchFavoritesCar()
+
+        const brands = cars 
+            ? cars.map(car => car.brand)
+                .filter((brand, index, brands) => 
+                    brands.indexOf(brand) == index)
+            : []
+
+        addBrand(["All", ...brands])
     }
 
-    async function handleSearchCar(brand, model) {
-        const car = await useFetchSearchedCar(brand, model)
+    async function handleSearchCar(brand) {
+        let cars = await useFetchFavoritesCar()
 
-        if(brand == "Recomended") {
-            setCategoryActive("Recomended")
+        if(brand != "All" && cars) {
+            cars = cars.filter(car => car.brand == brand)
+        }
+
+        if(brand == "All") {
+            setCategoryActive("All")
         }
         else {
-            setCategoryActive(car[0].brand)
+            setCategoryActive(cars[0].brand)
         }
 
-        addCar(car)
+        addCar(cars)
     }
 
     async function showCarView(event) {
@@ -117,7 +135,7 @@ function Favorite(props) {
             <div className="car-item-container">
                 {
                     allCars.map((car, index) => {
-                        const {images: [{name: image}]} = car
+                        const {images: [image]} = car
                         const {_id, brand, model} = car
                         const {price} = car
 

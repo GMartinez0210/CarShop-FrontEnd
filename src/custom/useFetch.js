@@ -26,20 +26,20 @@ export async function useFetchUserData() {
  * @returns An array of objects.
  */
 export async function useFetchCars() {
-    const carArray = await axios.get(env.API_URL+"/api/car")
+    const carArray = await axios.get(env.API_URL+"/api/cars")
     .then(response => response.data)
     .catch(error => {
         console.log(error)
         return null
     })
 
-    if(carArray == null) return null
+    if(!carArray) return null
 
-    const {car} = carArray
+    const {cars} = carArray
 
-    if(car == null) return null
+    if(!cars) return null
 
-    return car
+    return cars
 }
 
 /**
@@ -47,7 +47,7 @@ export async function useFetchCars() {
  * @returns An array of objects.
  */
 export async function useFetchBrands() {
-    const brandArray = await axios.get(env.API_URL+"/api/car/brand")
+    const brandArray = await axios.get(env.API_URL+"/api/brand")
         .then(response => response.data)
         .catch(error => {
             console.log(error)
@@ -60,7 +60,7 @@ export async function useFetchBrands() {
 
     if(brands == null) return null
 
-    return brands
+    return brands.map(brand => brand.name)
 }
 
 /**
@@ -70,13 +70,7 @@ export async function useFetchBrands() {
  * @returns An array of objects.
  */
 export async function useFetchSearchedCar(brand, model) {
-    let options = ""
-
-    if(brand != "Recomended") {
-        options = model 
-            ? `?brand=${brand}&model=${model}` 
-            : `?brand=${brand}`
-    }
+    const options = `?brand=${brand}&model=${model}` 
 
     const carArray = await axios.get(env.API_URL+"/api/search"+options)
     .then(response => response.data)
@@ -87,11 +81,30 @@ export async function useFetchSearchedCar(brand, model) {
 
     if(carArray == null) return
 
-    const {car} = carArray
+    const {cars} = carArray
 
-    if(car == null) return
+    if(cars == null) return
 
-    return car
+    return cars
+}
+
+export async function useFetchSearchedCarByBrand(brand) {
+    const options = `?brand=${brand}` 
+
+    const carArray = await axios.get(env.API_URL+"/api/search/brand"+options)
+    .then(response => response.data)
+    .catch(error => {
+        console.log(error)
+        return null
+    })
+
+    if(carArray == null) return
+
+    const {cars} = carArray
+
+    if(cars == null) return
+
+    return cars
 }
 
 /**
@@ -118,15 +131,29 @@ export async function useFetchCarView(target) {
 export async function useFetchFavoritesCar() {
     const user = window.localStorage.getItem("userID")
     
-    const favorites = await axios.get(env.API_URL+"/api/favorite"+`?user=${user}`)
+    const {favorites} = await axios.get(env.API_URL+"/api/favorite"+`?user=${user}`)
         .then(response => response.data)
         .catch(() => null)
 
     if(!favorites) return null
+    
+    const {car: carFav} = favorites
 
-    const {car} = favorites
+    let options = ""
 
-    if(!car) return null
+    carFav.forEach((car, index) => {
+        options += index == carFav.length - 1
+            ? `_id=${car}`
+            : `_id=${car}&`
+    })
 
-    return car
+    const carArray = await axios.get(env.API_URL+"/api/cars?"+options)
+        .then(response => response.data)
+        .catch(() => null) 
+
+    if(!carArray) return null
+
+    const {cars} = carArray
+
+    return cars
 }

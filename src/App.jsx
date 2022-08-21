@@ -1,3 +1,4 @@
+// * Modules
 import { useState } from "react"
 
 // * Hooks
@@ -10,7 +11,8 @@ import Nothing from "./pages/nothing/Nothing"
 import Favorite from "./pages/favorite/Favorite"
 
 function App() {
-    const [page, setPage] = useState("")
+    const [page, setPage] = useState("Home")
+    const [nothing, setSomething] = useState(false)
 
     const [shownCarView, setShownCarView] = useState(false)
     const [carView, setCarView] = useState(null)
@@ -28,31 +30,73 @@ function App() {
         setShownCarView(false)
     }
 
+    function renderHome() {
+        if(nothing) {
+            return <Nothing />
+        }
+
+        return <Home setCarView={setCarView} 
+        setShownCarView={setShownCarView} 
+        setSomething={setSomething}/>
+    }
+
+    function renderFavorite() {
+        if(nothing) {
+            return <Nothing 
+            paragraphTop={"You don't have any favorite car yet"} 
+            paragraphBottom={"Visit other views. Maybe there you will find your favorite car!"}/>
+        }
+
+        return <Favorite setCarView={setCarView}
+        setShownCarView={setShownCarView}
+        setSomething={setSomething}/>
+    }
+
+    function renderCart() {
+        if(nothing) {
+            return <Nothing />
+        }
+
+        // TODO render the cart component next instead if Nothing comp
+        return <Nothing />
+    }
+
+    function renderAccount() {
+        if(nothing) {
+            return <Nothing />
+        }
+        
+        // TODO render the account component next instead if Nothing comp
+        return <Nothing />
+    }
+
     return (
         <>
             {
-                page == "Home" 
-                && !shownCarView 
-                && <Home setCarView={setCarView} setShownCarView={setShownCarView}/>
+                (page == "Home" && !shownCarView ) && renderHome()
             }
 
             {
-                page == "Home" 
-                && shownCarView 
-                && <div> 
-                    <CarView car={carView} hideCarView={hideCarView}
-                        price={carView != null && newPrice(carView.price)} />
-                </div>
+                ((page == "Home" || page == "Favorite") && shownCarView)
+                && <CarView car={carView} hideCarView={hideCarView}
+                    price={carView != null && newPrice(carView.price)} />
             }
 
             {
-                page == "Favorite"
-                && <Favorite />
+                (page == "Favorite" && !shownCarView) && renderFavorite()
+            }
+
+            {
+                page == "Cart" && renderCart() 
+            }
+
+            {
+                page == "Account" && renderAccount()
             }
 
             {
                 !shownCarView
-                && <Nav setPage={setPage} getPage={getPage}/>
+                && <Nav setPage={setPage} getPage={getPage} setSomething={setSomething}/>
             }
         </>
     )

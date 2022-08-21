@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import "./navIcon.css"
 
 function NavIcon(props) {
-    const [active, setActive] = useState("Home")
+    const [active, setActive] = useState(props.getPage())
 
     const home = "bi bi-house-door"
     const homeFill = "bi bi-house-door-fill"
@@ -30,6 +30,7 @@ function NavIcon(props) {
 
     useEffect(() => {
         props.setPage(active)
+        props.setSomething(false)
     }, [active])
 
     return (

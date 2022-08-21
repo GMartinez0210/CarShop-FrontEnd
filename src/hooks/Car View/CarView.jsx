@@ -57,8 +57,6 @@ function CarView(props) {
         }
 
         if(isFavorite) {
-            alert("Delete")
-
             options["method"] = "delete"
 
             const result = await axios(options)
@@ -74,8 +72,6 @@ function CarView(props) {
             return
         }
         
-        alert("Post")
-
         options["method"] = "post"
 
         const result = await axios(options)
@@ -114,6 +110,11 @@ function CarView(props) {
         setThere(true)
     }
 
+    function handleBack() {
+        setThere(false)
+        setTimeout(props.hideCarView, 200)
+    }
+
     useEffect(() => {
         handleCheckingFavorite()
     },[])
@@ -124,7 +125,7 @@ function CarView(props) {
                 <div>
                     <Slider key={"Car-View-Slider"} id={"car-view-images"} images={props.car.images} />
                 </div>
-                <button className="car-view-back" onClick={props.hideCarView}>
+                <button className="car-view-back" onClick={handleBack}>
                     <i className={chevronLeft}></i>
                 </button>
                 <div className="car-view-search">

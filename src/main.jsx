@@ -1,18 +1,24 @@
+// * Modules
 import React from 'react'
-import ReactDOM from 'react-dom/client'
-
+import ReactDOM, { createRoot } from 'react-dom/client'
 import {
   BrowserRouter,
   Routes,
   Route,
 } from "react-router-dom";
 
+// * Cursor Image
+import "./main.css"
+
+// * Pages
 import App from './App'
 import Welcome from "./pages/welcome/Welcome"
 import Login from './pages/login/Login';
 import SingUp from './pages/sing up/SingUp';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const root = document.getElementById('root')
+
+createRoot(root).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>

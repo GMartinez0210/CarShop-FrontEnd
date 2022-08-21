@@ -22,8 +22,8 @@ function Slider(props) {
                         return (
                             <div key={"Slider-Image-"+index} className={`car-view-img carousel-item ${index == 0 && "active"}`}>
                                 <img className="d-block w-100" 
-                                    src={`http://localhost:4000/api/image/${item.name}`}
-                                    alt={item.name} />
+                                    src={`http://localhost:4000/api/image/${item}`}
+                                    alt={item} />
                             </div>
                         )
                     })

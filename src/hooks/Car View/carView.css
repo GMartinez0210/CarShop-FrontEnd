@@ -6,7 +6,7 @@
     transform: translateX(-100%);
     opacity: 0;
 
-    transition: 0.5s ease-in-out all
+    transition: 0.3s ease-in-out all
 }
 
 .car-view-container.shown {
@@ -239,7 +239,7 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    row-gap: 1rem;
+    gap: 1rem;
 }
 
 .car-view-icon-container {
@@ -271,10 +271,10 @@
 }
 
 .car-view-icon-info {
-    max-width: 60px;
+    max-width: 75px;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    row-gap: 0.5rem;
 }
 
 .car-view-icon-info p {

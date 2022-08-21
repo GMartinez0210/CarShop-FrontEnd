@@ -2,6 +2,10 @@
 import "./categoryItem.css"
 
 function CategoryItem(props) {
+    let buttonMainClass = "category-item-btn" 
+
+    if(props.buttonClass) buttonMainClass + " " + props.buttonClass
+
     function onClickButton(event) {
         const key = event.target.ariaLabel
         props.setCategoryActive(key)
@@ -14,9 +18,7 @@ function CategoryItem(props) {
                 props.categories.map((brand, index) => {
                     return (
                         <button key={`Home-Category-Item-${index}`} 
-                            className={`${props.buttonClass || ""} 
-                                ${props.getCategoryActive() == brand ? "active" : ""}   
-                                category-item-btn`} 
+                            className={`${buttonMainClass}${props.getCategoryActive() == brand ? " active" : ""}`} 
                             type="button" aria-label={brand} 
                             onClick={onClickButton}>
                             {brand}

@@ -3,6 +3,9 @@ import { useFormik } from "formik"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 
+// * Env variables and utilities
+import env from "../../env"
+
 // * Components
 import LogoVector from "../../components/Logo Vector/LogoVector"
 import TitleSubtitle from "../../components/Title Subtitle/TitleSubtitle"
@@ -76,11 +79,26 @@ function Login() {
         navigate("/", {replace: true})
     }
 
-    useEffect(() => {
+    async function handleLogin() {
         const userID = window.localStorage.getItem("userID")
-        if(userID) {
-            navigate("/", {replace: true})
-        }
+		if(!userID) {
+			return
+		}
+
+		const sessionUserID = await axios.get(env.API_URL+"/api/login?user="+userID)
+			.then(response => response.data)
+			.catch(() => null)
+
+		if(!sessionUserID.loggedIn) {
+			return
+		}
+
+		navigate("/home", {replace: true})
+		setLoggedIn(true)
+    }
+
+    useEffect(() => {
+        handleLogin()
     })
 
     return(

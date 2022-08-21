@@ -6,7 +6,7 @@ const gearWide = "bi bi-gear-wide"
 const gearWideConnected = "bi bi-gear-wide-connected"
 const emojiFrown = "bi bi-emoji-frown"
 
-function Nothing() {
+function Nothing(props) {
     return (
         <div className="nothing">
             <div className="nothing-emojies">
@@ -15,9 +15,15 @@ function Nothing() {
             </div>
 
             <div className="nothing-message">
-                <h1 className="nothing-message-title">Nothing to show</h1>
-                <p className="nothing-message-paragraph">We are still working on this section</p>
-                <p className="nothing-message-paragraph">Please, visit the other views</p>
+                <h1 className="nothing-message-title">
+                    {props.title || "Nothing to show"}
+                </h1>
+                <p className="nothing-message-paragraph">
+                    {props.paragraphTop || "We are still working on this section"}
+                </p>
+                <p className="nothing-message-paragraph">
+                    {props.paragraphBottom || "Please, visit the other views"}
+                </p>
             </div>
 
             <div className="nothing-working-container">
