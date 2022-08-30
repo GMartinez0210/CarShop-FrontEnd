@@ -80,6 +80,8 @@ function Login() {
     }
 
     async function handleLogin() {
+        /*
+        * ADD THE CODE FOR PRODUCCTION
         const userID = window.localStorage.getItem("userID")
 		if(!userID) {
 			return
@@ -92,9 +94,9 @@ function Login() {
 		if(!sessionUserID.loggedIn) {
 			return
 		}
-
 		navigate("/home", {replace: true})
-		setLoggedIn(true)
+		//setLoggedIn(true)
+        */
     }
 
     useEffect(() => {

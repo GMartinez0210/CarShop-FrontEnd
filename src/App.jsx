@@ -7,8 +7,9 @@ import Nav from "./hooks/Nav/Nav"
 // * Pages
 import Home from "./pages/home/Home"
 import CarView from "./hooks/Car View/CarView"
-import Nothing from "./pages/nothing/Nothing"
 import Favorite from "./pages/favorite/Favorite"
+import Account from "./pages/account/Account"
+import Nothing from "./pages/nothing/Nothing"
 
 function App() {
     const [page, setPage] = useState("Home")
@@ -67,7 +68,7 @@ function App() {
         }
         
         // TODO render the account component next instead if Nothing comp
-        return <Nothing />
+        return <Account />
     }
 
     return (

@@ -9,7 +9,7 @@ function CategoryItem(props) {
     function onClickButton(event) {
         const key = event.target.ariaLabel
         props.setCategoryActive(key)
-        props.handleSearchCar(key)
+        props.handleSearchCar && props.handleSearchCar(key)
     }
 
     return (

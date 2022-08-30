@@ -1,0 +1,28 @@
+.category-car-subtitle {
+    font-family: 'Kumbh Sans';
+    font-weight: 600;
+    font-size: 1.25rem;
+
+    text-align: justify;
+
+    margin: 0 1.5rem;
+
+    color: #7F8487;
+}
+
+.category-car-container {
+    display: flex;
+    gap: 1.5rem;
+
+    padding: 1.5rem;
+
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+}
+
+.category-car-container::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+
+    display: none;
+}

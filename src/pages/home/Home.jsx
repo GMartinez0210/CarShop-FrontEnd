@@ -23,7 +23,7 @@ import "./home.css"
 
 // * Components
 import CarItem from "../../components/Car Item/CarItem"
-import Menu from "../../components/Menu/Menu"
+import Menu from "../../hooks/Menu/Menu"
 import SmallText from "../../components/Small Text/SmallText"
 import ButtonSubmit from "../../components/Button Submit/ButtonSubmit"
 import PopularItem from "../../components/Popular Item/PopularItem"
@@ -80,6 +80,7 @@ function Home(props) {
 	})
 
 	async function onSubmitSearch(values) {
+		// !! ERROR not searching anything
 		const {search} = values
 
 		const words = search.trim().split(" ")
@@ -100,18 +101,18 @@ function Home(props) {
 	}
 
 	async function handleSearchCar(brand, model) {
-		const car = !!model 
+		if(brand == "Recomended") {
+			const cars = await useFetchCars()
+			addCar(cars)
+			return
+		}
+
+		const cars = !!model 
 			? await useFetchSearchedCar(brand, model)
 			: await useFetchSearchedCarByBrand(brand)
 
-		if(brand == "Recomended") {
-			setCategoryActive("Recomended")
-		}
-		else {
-			setCategoryActive(car[0].brand)
-		}
-
-		addCar(car)
+		setCategoryActive(cars[0].brand)
+		addCar(cars)
 	}
 
 	async function handleFetchPopulars() {
@@ -126,6 +127,8 @@ function Home(props) {
 	}
 
 	async function handleLogin() {
+		/*
+		* ADD THE CODE FOR PRODUCCTION
 		const userID = window.localStorage.getItem("userID")
 		if(!userID) {
 			setLoggedIn(false)
@@ -142,7 +145,7 @@ function Home(props) {
 			navigate("/login", {replace: true})
 			return
 		}
-
+		*/
 		setLoggedIn(true)
 	}
 
