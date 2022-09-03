@@ -51,8 +51,13 @@ function Account() {
                 <h1 className="account-profile-name">{userData.fullname}</h1>
             </header>
 			<main>
-				<OutputInfo title={"Email"} 
-					icon={emailIcon} value={userData.email} />
+				<section>
+					<OutputInfo title={"Email"} 
+						icon={emailIcon} value={userData.email} />
+				</section>
+				<section>
+					
+				</section>
 			</main>
         </div>
     )

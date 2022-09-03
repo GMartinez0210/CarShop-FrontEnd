@@ -10,6 +10,7 @@ import CarView from "./hooks/Car View/CarView"
 import Favorite from "./pages/favorite/Favorite"
 import Account from "./pages/account/Account"
 import Nothing from "./pages/nothing/Nothing"
+import Cart from "./pages/cart/Cart"
 
 function App() {
     const [page, setPage] = useState("Home")
@@ -58,8 +59,7 @@ function App() {
             return <Nothing />
         }
 
-        // TODO render the cart component next instead if Nothing comp
-        return <Nothing />
+        return <Cart />
     }
 
     function renderAccount() {
@@ -67,7 +67,6 @@ function App() {
             return <Nothing />
         }
         
-        // TODO render the account component next instead if Nothing comp
         return <Account />
     }
 

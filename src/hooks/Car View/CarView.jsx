@@ -154,7 +154,10 @@ function CarView(props) {
                                     <i className={plusIcon}></i>
                                 </button>
                             </div>
-                            <span className="car-view-price">{props.price}</span>
+                            <div className="car-view-price-container">
+                                <p className="car-view-price">{props.price}</p>
+                                <p className="car-view-day">per day</p>
+                            </div>
                         </div>
                     </header>
                     <main>
@@ -196,8 +199,8 @@ function CarView(props) {
                         <button className="car-view-icon">
                             <i className={cartIcon}></i>
                         </button>
-                        <button className="car-view-buy">
-                            Buy now
+                        <button className="car-view-rent">
+                            Rent now
                         </button>
                     </footer>
                 </div>

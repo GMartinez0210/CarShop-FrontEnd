@@ -202,6 +202,12 @@
     box-shadow: 0 4px 4px #00000040;
 }
 
+.car-view-price-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
 .car-view-price {
     font-family: 'Kumbh Sans';
     font-weight: 900;
@@ -210,6 +216,20 @@
     text-align: center;
 
     color: #7D94A5;
+
+    margin: 0;
+}
+
+.car-view-day {
+    font-family: 'Kumbh Sans';
+    font-weight: 600;
+    font-size: 0.875rem;
+
+    text-align: center;
+
+    color: #7F8487;
+
+    margin: 0;
 }
 
 .car-view-about-container {
@@ -249,6 +269,8 @@
 }
 
 .car-view-icon {
+    flex-shrink: 1;
+
     width: 40px;
     aspect-ratio: 1;
 
@@ -306,12 +328,8 @@
     margin-bottom: 1.5rem;
 }
 
-.car-view-icon {
-    box-shadow: 0 4px 4px #00000040;
-}
-
-.car-view-buy {
-    width: 100%;
+.car-view-rent {
+    flex-grow: 1;
     background-color: #4B677A;
     color: #FFF;
 
@@ -321,7 +339,7 @@
 
     text-align: center;
 
-    padding: 0.5rem 3rem;
+    padding-block: 0.5rem;
     border: 0;
     border-radius: 1rem;
     box-shadow: 0 4px 4px #00000040;

@@ -84,13 +84,13 @@ function Home(props) {
 		const {search} = values
 
 		const words = search.trim().split(" ")
-		
+				
 		const brand = words.length == 1 
 		? words[0] : words.shift()
 		
 		const brandParse = brand.charAt(0).toUpperCase() + brand.slice(1).toLowerCase()
-		
-		const model = !!words[0] 
+
+		const model = words[0] != brand 
 			? words.map(value => {
 				const newValue = `${value.charAt(0).toUpperCase()}${value.slice(1).toLowerCase()}`
 				return newValue
@@ -101,15 +101,19 @@ function Home(props) {
 	}
 
 	async function handleSearchCar(brand, model) {
-		if(brand == "Recomended") {
+		if(brand == "Recomended" || !brand) {
 			const cars = await useFetchCars()
 			addCar(cars)
+			setCategoryActive("Recomended")
 			return
 		}
 
+		console.log(brand, !!model)
 		const cars = !!model 
 			? await useFetchSearchedCar(brand, model)
 			: await useFetchSearchedCarByBrand(brand)
+
+		console.log(cars)
 
 		setCategoryActive(cars[0].brand)
 		addCar(cars)
