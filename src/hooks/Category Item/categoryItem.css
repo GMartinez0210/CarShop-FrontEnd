@@ -8,11 +8,13 @@
 
     border: 0;
     padding: 0.75rem;
-    box-shadow: 0px 0px 4px #00000040;
+    box-shadow: 0px 4px 4px #00000040;
 
     font-family: 'Kumbh Sans';
     font-weight: 500;
     font-size: 1.125rem;
+
+    text-decoration: none;
 }
 
 .category-item-btn.active {

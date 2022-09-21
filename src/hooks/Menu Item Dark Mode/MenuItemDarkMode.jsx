@@ -20,10 +20,10 @@ function MenuItemDarkMode() {
         const root = document.getElementById("root")
 
         if(isDarkMode) {
-            root.classList.add("dark")
+            root.setAttribute("class", "dark")
         }
         else {
-            root.classList.remove("dark")
+            root.removeAttribute("class")
         }
     }, [isDarkMode])
 

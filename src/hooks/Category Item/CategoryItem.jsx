@@ -12,6 +12,26 @@ function CategoryItem(props) {
         props.handleSearchCar && props.handleSearchCar(key)
     }
 
+    if(props.favoritePage) {
+        return (
+            <>
+                {
+                    props.categories.map((brand, index) => {
+                        return (
+                            <a key={`Home-Category-Item-${index}`} 
+                                className={`${buttonMainClass}${props.getCategoryActive() == brand ? " active" : ""}`} 
+                                type="button" aria-label={brand} 
+                                onClick={onClickButton} 
+                                href={`#${brand}`}>
+                                {brand}
+                            </a>
+                        )
+                    })
+                }
+            </>
+        )
+    }
+
     return (
         <>
             {

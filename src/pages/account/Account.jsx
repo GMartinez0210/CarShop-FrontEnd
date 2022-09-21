@@ -9,7 +9,7 @@ import {
 	useFetchBrands,
 	useFetchSearchedCar, 
 	useFetchSearchedCarByBrand
-} from "../../custom/useFetch.js"
+} from "../../middlewares/useFetch.js"
 
 // * Environmental variables
 import env from "../../env"

@@ -1,4 +1,4 @@
-import "./nothing.css"
+import "./empty.css"
 
 import emojiSad from "../../assets/Nothing/emoji-sad.svg"
 

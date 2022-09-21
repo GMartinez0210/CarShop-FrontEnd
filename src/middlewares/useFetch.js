@@ -2,7 +2,7 @@
 import axios from "axios"
 
 // * Env variables
-import env from "../env"
+const env = import.meta.env
 
 /**
  * This function will return the user data from the database if the user is logged in, otherwise it
@@ -11,7 +11,7 @@ import env from "../env"
  */
 export async function useFetchUserData() {
     const _id = window.localStorage.getItem("userID")
-    const user = await axios.get(env.API_URL+"/api/user"+`?_id=${_id}`)
+    const user = await axios.get(env.VITE_API_URL+"/api/user"+`?_id=${_id}`)
         .then(({data}) => {
             const { user } = data
             return user
@@ -26,7 +26,7 @@ export async function useFetchUserData() {
  * @returns An array of objects.
  */
 export async function useFetchCars() {
-    const carArray = await axios.get(env.API_URL+"/api/cars")
+    const carArray = await axios.get(env.VITE_API_URL+"/api/cars")
     .then(response => response.data)
     .catch(error => {
         console.log(error)
@@ -47,7 +47,7 @@ export async function useFetchCars() {
  * @returns An array of objects.
  */
 export async function useFetchBrands() {
-    const brandArray = await axios.get(env.API_URL+"/api/brand")
+    const brandArray = await axios.get(env.VITE_API_URL+"/api/brand")
         .then(response => response.data)
         .catch(error => {
             console.log(error)
@@ -72,7 +72,7 @@ export async function useFetchBrands() {
 export async function useFetchSearchedCar(brand, model) {
     const options = `?brand=${brand}&model=${model}` 
 
-    const carArray = await axios.get(env.API_URL+"/api/search"+options)
+    const carArray = await axios.get(env.VITE_API_URL+"/api/search"+options)
     .then(response => response.data)
     .catch(error => {
         console.log(error)
@@ -88,10 +88,15 @@ export async function useFetchSearchedCar(brand, model) {
     return cars
 }
 
+/**
+ * It takes a brand as a parameter, and returns an array of cars that match that brand.
+ * @param brand - string
+ * @returns An array of objects.
+ */
 export async function useFetchSearchedCarByBrand(brand) {
     const options = `?brand=${brand}` 
 
-    const carArray = await axios.get(env.API_URL+"/api/search/brand"+options)
+    const carArray = await axios.get(env.VITE_API_URL+"/api/search/brand"+options)
     .then(response => response.data)
     .catch(error => {
         console.log(error)
@@ -115,7 +120,7 @@ export async function useFetchSearchedCarByBrand(brand) {
 export async function useFetchCarView(target) {
     const _id = target.id
 
-    const carInfo = await axios.get(env.API_URL+`/api/car?_id=${_id}`)
+    const carInfo = await axios.get(env.VITE_API_URL+`/api/car?_id=${_id}`)
         .then(response => response.data)
         .catch(() => null)
 
@@ -128,10 +133,15 @@ export async function useFetchCarView(target) {
     return car
 }
 
+/**
+ * It takes the user's ID from localStorage, then it gets the user's favorites from the database, then
+ * it gets the cars from the database that are in the user's favorites, then it returns the cars.
+ * @returns An array of objects.
+ */
 export async function useFetchFavoritesCar() {
     const user = window.localStorage.getItem("userID")
     
-    const {favorites} = await axios.get(env.API_URL+"/api/favorite"+`?user=${user}`)
+    const {favorites} = await axios.get(env.VITE_API_URL+"/api/favorite"+`?user=${user}`)
         .then(response => response.data)
         .catch(() => null)
 
@@ -147,7 +157,7 @@ export async function useFetchFavoritesCar() {
             : `_id=${car}&`
     })
 
-    const carArray = await axios.get(env.API_URL+"/api/cars?"+options)
+    const carArray = await axios.get(env.VITE_API_URL+"/api/cars?"+options)
         .then(response => response.data)
         .catch(() => null) 
 
@@ -156,4 +166,29 @@ export async function useFetchFavoritesCar() {
     const {cars} = carArray
 
     return cars
+}
+
+/**
+ * It fetches the cart items from the database and returns them
+ * @returns An array of objects.
+ */
+export async function useFetchCartItems() {
+    const user = window.localStorage.getItem("userID")
+    const url = env.VITE_API_URL
+
+    const cartOptions = {
+        params: {
+            user
+        }
+    }
+
+    const carts = await axios.get(url+"/api/cart", cartOptions)
+        .then(response => response.data)
+        .catch(error => {
+            console.log(error)
+            return error.response.data
+        })
+
+
+    return carts
 }

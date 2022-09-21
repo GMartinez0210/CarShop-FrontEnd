@@ -5,6 +5,11 @@ import { useEffect, useState } from "react"
 import env from "../../env"
 import utilities from "../../utilities"
 
+// * Importing middlewares
+import {
+    useCreateCartAdded
+} from "../../middlewares/useCreate"
+
 // * CSS
 import "./carView.css"
 
@@ -19,7 +24,7 @@ import axios from "axios"
 // * Icons
 const chevronLeft = "bi bi-chevron-left"
 const searchIcon = "bi bi-search"
-const heartFill = "bi bi-suit-heart-fill"
+const starFill = "bi bi-star-fill"
 const minusIcon = "bi bi-dash"
 const plusIcon = "bi bi-plus"
 const gearIcon = "bi bi-gear"
@@ -31,7 +36,7 @@ function CarView(props) {
     const [isFavorite, setFavorite] = useState(false)
 
     function lessQuantity() {
-        if(quantity != 0) {
+        if(quantity >= 0) {
             setQuantity(quantity - 1)
         }
     }
@@ -115,6 +120,21 @@ function CarView(props) {
         setTimeout(props.hideCarView, 200)
     }
 
+    // TODO Making a function to add the car into the cart
+    async function handleClickCart() {
+        if(!quantity) {
+            alert("It's zero")
+            return
+        }
+
+        const params = {
+            car: props.car._id,
+            quantity
+        }
+        await useCreateCartAdded(params)
+            .then(() => alert("Added"))
+    }
+
     useEffect(() => {
         handleCheckingFavorite()
     },[])
@@ -135,7 +155,7 @@ function CarView(props) {
             <section className="car-view-info-container">
                 <div className={`car-view-favorite ${isFavorite ? "active" : ""}`} 
                     onClick={handleFavoriteTap}>
-                    <i className={heartFill}></i>
+                    <i className={starFill}></i>
                 </div>
                 <div className="car-view-info">
                     <header className="car-view-header">
@@ -165,6 +185,9 @@ function CarView(props) {
                             <h2 className="car-view-about">About</h2>
                             <p className="car-view-about-text">{props.car.about}</p>
                         </section>
+                        {/* 
+                        // TODO turn the next section into a component  
+                        */}
                         <section className="car-view-icon-main-container">
                             <div className="car-view-icon-container">
                                 <button className="car-view-icon">
@@ -196,7 +219,8 @@ function CarView(props) {
                         </section>
                     </main>
                     <footer className="car-view-footer">
-                        <button className="car-view-icon">
+                        <button className="car-view-icon" 
+                            onClick={handleClickCart}>
                             <i className={cartIcon}></i>
                         </button>
                         <button className="car-view-rent">

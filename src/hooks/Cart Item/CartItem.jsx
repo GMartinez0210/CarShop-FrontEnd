@@ -1,12 +1,21 @@
 // * Importing modules
-import React, { useState } from "react"
-
-// * CSS
-import "./cartItem.css"
+import React, { useEffect, useState } from "react"
 
 // * Env variable and utilities
 import env from "../../env"
 import utilities from "../../utilities.js"
+
+// * Importing middlewares
+import {
+    useUpdateCartQuantity
+} from "../../middlewares/useUpdate"
+
+import {
+    useDeleteCartItem
+} from "../../middlewares/useDelete"
+
+// * CSS
+import "./cartItem.css"
 
 // * Components
 import TitleSubtitle from "../../components/Title Subtitle/TitleSubtitle"
@@ -17,17 +26,34 @@ const plusIcon = "bi bi-plus"
 const trashIcon = "bi bi-trash"
 
 function CartItem(props) {
-    const [quantity, setQuantity] = useState(2)
+    const [quantity, setQuantity] = useState(props.car.quantity)
 
-    function lessQuantity() {
-        if(quantity != 0) {
-            setQuantity(quantity - 1)
+    async function lessQuantity() {
+        if(quantity > 1) {
+            const cartItem = {
+                car: props.car._id,
+                quantity: +quantity - 1
+            }
+            await useUpdateCartQuantity(cartItem)
+            setQuantity(+quantity - 1)
+            return
         }
+
+        await useDeleteCartItem(props.car._id)
     }
 
-    function addQuantity() {
-        setQuantity(quantity + 1)
+    async function addQuantity() {
+        const cartItem = {
+            car: props.car._id,
+            quantity: +quantity + 1
+        }
+        await useUpdateCartQuantity(cartItem)
+        setQuantity(+quantity + 1)
     }
+
+    useEffect(() => {
+        props.handleFetchCart()
+    }, [quantity])
 
     return (
         <div className="cart-item">
@@ -53,7 +79,7 @@ function CartItem(props) {
                         <button className="cart-item-less-quantity" 
                             onClick={lessQuantity}>
                             <i className={
-                                quantity == 1 
+                                quantity <= 1 
                                 ? trashIcon
                                 : minusIcon
                             }></i>

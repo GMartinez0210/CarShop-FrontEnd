@@ -16,7 +16,7 @@ import {
 	useFetchBrands,
 	useFetchSearchedCar, 
 	useFetchSearchedCarByBrand
-} from "../../custom/useFetch.js"
+} from "../../middlewares/useFetch.js"
 
 // * CSS
 import "./home.css"
@@ -80,7 +80,6 @@ function Home(props) {
 	})
 
 	async function onSubmitSearch(values) {
-		// !! ERROR not searching anything
 		const {search} = values
 
 		const words = search.trim().split(" ")
@@ -108,12 +107,9 @@ function Home(props) {
 			return
 		}
 
-		console.log(brand, !!model)
 		const cars = !!model 
 			? await useFetchSearchedCar(brand, model)
 			: await useFetchSearchedCarByBrand(brand)
-
-		console.log(cars)
 
 		setCategoryActive(cars[0].brand)
 		addCar(cars)

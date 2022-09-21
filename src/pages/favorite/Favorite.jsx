@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 import { 
     useFetchCarView,
     useFetchFavoritesCar
-} from "../../custom/useFetch.js"
+} from "../../middlewares/useFetch.js"
 
 // * CSS
 import "./favorite.css"
@@ -92,7 +92,8 @@ function Favorite(props) {
             <div className="favorite-categories-container">
                 <CategoryItem categories={allBrands} 
                     getCategoryActive={getCategoryActive} 
-                    setCategoryActive={setCategoryActive} />
+                    setCategoryActive={setCategoryActive} 
+                    favoritePage={true} />
             </div>
 
             {

@@ -97,6 +97,7 @@ function Login() {
 		navigate("/home", {replace: true})
 		//setLoggedIn(true)
         */
+		navigate("/home", {replace: true})
     }
 
     useEffect(() => {

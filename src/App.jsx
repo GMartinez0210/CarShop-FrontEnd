@@ -9,7 +9,7 @@ import Home from "./pages/home/Home"
 import CarView from "./hooks/Car View/CarView"
 import Favorite from "./pages/favorite/Favorite"
 import Account from "./pages/account/Account"
-import Nothing from "./pages/nothing/Nothing"
+import Empty from "./pages/empty/Empty"
 import Cart from "./pages/cart/Cart"
 
 function App() {
@@ -34,29 +34,29 @@ function App() {
 
     function renderHome() {
         if(nothing) {
-            return <Nothing />
+            return <Empty />
         }
 
         return <Home setCarView={setCarView} 
-        setShownCarView={setShownCarView} 
-        setSomething={setSomething}/>
+            setShownCarView={setShownCarView} 
+            setSomething={setSomething}/>
     }
 
     function renderFavorite() {
         if(nothing) {
-            return <Nothing 
-            paragraphTop={"You don't have any favorite car yet"} 
-            paragraphBottom={"Visit other views. Maybe there you will find your favorite car!"}/>
+            return <Empty 
+                paragraphTop={"You don't have any favorite car yet"} 
+                paragraphBottom={"Visit other views. Maybe there you will find your favorite car!"}/>
         }
 
         return <Favorite setCarView={setCarView}
-        setShownCarView={setShownCarView}
-        setSomething={setSomething}/>
+            setShownCarView={setShownCarView}
+            setSomething={setSomething}/>
     }
 
     function renderCart() {
         if(nothing) {
-            return <Nothing />
+            return <Empty />
         }
 
         return <Cart />
@@ -64,7 +64,7 @@ function App() {
 
     function renderAccount() {
         if(nothing) {
-            return <Nothing />
+            return <Empty />
         }
         
         return <Account />
